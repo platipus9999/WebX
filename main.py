@@ -36,7 +36,7 @@ if choice == 1:
                     nombre += 1
         else:
             a = input("Invalid Webhook \nRetry ? [y/n] \n> ")
-            if a == "y" or a == "Y":
+            if a.lower == "y":
                 boucle = True 
             else:
                 exit()        
