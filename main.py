@@ -53,7 +53,7 @@ if choice == 2:
             requests.delete(webhook)
         else:
             a = input("Invalid Webhook \nRetry ? [y/n] \n> ")
-            if a.lower == "y":
+            if a.lower() == "y":
                 boucle = True 
             else:
                 exit() 
