@@ -49,7 +49,7 @@ if choice == 2:
         webhook = str(input(f"===========\n{Fore.RED}Webhook URL{Fore.RESET}\n> "))
         r = requests.get(webhook)
         
-        if req.status_code == 200:
+        if r.status_code == 200:
             requests.delete(webhook)
         else:
             a = input("Invalid Webhook \nRetry ? [y/n] \n> ")
