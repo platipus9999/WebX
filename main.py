@@ -1,5 +1,4 @@
 import os
-from threading import Thread
 try:
     from fake_useragent import UserAgent
     import requests
