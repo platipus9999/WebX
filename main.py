@@ -1,59 +1,62 @@
 import os
-#Auto import if you are not on window delete this and do in your terminal this: pip install requests colorama
+from threading import Thread
 try:
+    from fake_useragent import UserAgent
     import requests
-    from colorama import Fore, init
 except (ModuleNotFoundError):
-    os.system('pip install requests colorama')
-#---------------------------------------------------
+    os.system('pip install requests fake_useragent ')
 
-init(convert=True)
-nombre = 0
+user_agent = UserAgent().random
+
+headers = {
+    'user-agent': user_agent,
+    'Content-Type': 'application/json'
+}
+
+proxies = {
+  'http':  '1.1.1.1:8080',
+  'https': '1.1.1.1:8080'
+}  
+
 sended = 0
 
-choice = int(input(f"\n\nWebX:\n\n1. {Fore.GREEN}Spam Webhook {Fore.RESET}[1]\n2. {Fore.RED}Delete Webhook {Fore.RESET}[2]\n\n{Fore.WHITE}Choice : {Fore.RESET}"))
+choice = int(input("""
+██     ██ ███████ ██████  ██   ██ 
+██     ██ ██      ██   ██  ██ ██  
+██  █  ██ █████   ██████    ███   
+██ ███ ██ ██      ██   ██  ██ ██  
+ ███ ███  ███████ ██████  ██   ██ 
+ 
+[1]Spam Webhook [2]Delete Webook
+
+Choice > """))
+
+webhook = input("Webhook URL > ")
+thread = int(input("Number Threads > "))
+req = requests.get(webhook)
+
+if req.status_code == 200:
+    pass
+else:
+    input("Invalid Url !")
+
+def spam():
+        data = requests.post(webhook, json={'content': message},headers=headers)
+        if data.status_code == 204:
+            print(f"{sended} Message Sended!")
 
 if choice not in [1, 2]:
-    input(f'---\n{Fore.BLUE}Webhook{Fore.RESET} -> {Fore.RED}Error{Fore.RESET} ')
+    input("Are you dumb ? ")
 
-if choice == 1:
-    boucle = True
-    while boucle == True:
-        print(f"\n===========\n{Fore.RED}Webhook URL{Fore.RESET}")
-        
-        webhook = str(input(" > "))
-        req = requests.get(webhook)
-
-        if req.status_code == 200:
-            print(f"{Fore.BLUE}Message{Fore.RESET}")
-            message = str(input(" > "))
-            b = int(input("Number of Message [0 = inf] \n> "))
-
-            while nombre < b:
-                _data = requests.post(webhook, json={'content': message}, headers={'Content-Type': 'application/json'})
-                if _data.status_code == 204:
-                    print(f"{Fore.GREEN} Message Sended!")
-                    nombre += 1
+elif choice == 1:
+    message = input("Message > ")
+    nombre = int(input("Number of Message [0 = inf] > "))
+    while sended != nombre:
+        spam()
+         
+elif choice == 2:
+        req = requests.delete(webhook, headers=headers)
+        if req.status_code == 204:
+            input("Webhook has been successfully deleted ! ")
         else:
-            a = input("Invalid Webhook \nRetry ? [y/n] \n> ")
-            if a.lower == "y":
-                boucle = True 
-            else:
-                exit()        
-           
-
-if choice == 2:
-    boucle = True
-
-    while boucle == True:
-        webhook = str(input(f"===========\n{Fore.RED}Webhook URL{Fore.RESET}\n> "))
-        r = requests.get(webhook)
-        
-        if r.status_code == 200:
-            requests.delete(webhook)
-        else:
-            a = input("Invalid Webhook \nRetry ? [y/n] \n> ")
-            if a.lower() == "y":
-                boucle = True 
-            else:
-                exit() 
+            input("Requests Error ! ")       
