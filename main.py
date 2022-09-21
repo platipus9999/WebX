@@ -52,6 +52,7 @@ elif choice == 1:
     nombre = int(input("Number of Message [0 = inf] > "))
     while sended != nombre:
         spam()
+        sended += 1
          
 elif choice == 2:
         req = requests.delete(webhook, headers=headers)
