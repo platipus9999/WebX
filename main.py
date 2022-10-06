@@ -26,7 +26,7 @@ choice = int(input("""
 ██ ███ ██ ██      ██   ██  ██ ██  
  ███ ███  ███████ ██████  ██   ██ 
  
-[1]Spam Webhook [2]Delete Webook
+[1]Spam Webhook [2]Delete Webhook
 
 Choice > """))
 
